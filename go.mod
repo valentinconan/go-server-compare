@@ -5,6 +5,7 @@ go 1.21.5
 require (
 	github.com/gin-gonic/gin v1.9.1
 	github.com/go-martini/martini v0.0.0-20170121215854-22fa46961aab
+	github.com/gorilla/mux v1.8.1
 	github.com/labstack/echo v3.3.10+incompatible
 	goji.io v2.0.2+incompatible
 )

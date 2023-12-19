@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"github.com/gin-gonic/gin"
 	"github.com/go-martini/martini"
+	gorilla "github.com/gorilla/mux"
 	"github.com/labstack/echo"
 	"goji.io"
 	"goji.io/pat"
@@ -15,24 +16,14 @@ func main() {
 	slog.Info("Initializing router")
 	//      10s test    port            -c 50                   -c 200                  -c 1000
 	go localGoGin()   //8080       305409 |  5,86MB/s      301142 |  5,76MB/s      305546 | 5,83MB/s
-	go localMux()     //8081       539316 | 10,34MB/s      584001 | 11,19MB/s      470207 | 9,00MB/s
+	go localHttpMux() //8081       539316 | 10,34MB/s      584001 | 11,19MB/s      470207 | 9,00MB/s
 	go localEcho()    //8082       557608 | 10,69MB/s      509854 |  9,77MB/s      448974 | 8,59MB/s
 	go localMartini() //8083       251361 |  4,82MB/s      286005 |  5,48MB/s      271453 | 5,20MB/s
 	go localGoji()    //8084       552464 | 10,59MB/s      584054 | 11,19MB/s      450340 | 8,62MB/s
-	go localHttp()    //8085       448007 |  8,59MB/s      432371 |  8,25MB/s      341642 | 6,55MB/s
+	go localGorilla() //8085       554316 | 10,63MB/s      572607 | 10,98MB/s      446838 | 8,56MB/s
 	var forever chan struct{}
 	slog.Info("Infinite loop")
 	<-forever
-}
-
-func localHttp() {
-	http.HandleFunc("/health", func(w http.ResponseWriter, r *http.Request) {
-		fmt.Fprintf(w, "{\"status\": \"OK\"}")
-	})
-
-	if err := http.ListenAndServe(":8085", nil); err != nil {
-		panic(err)
-	}
 }
 
 func localGoji() {
@@ -51,7 +42,16 @@ func localMartini() {
 	})
 	m.RunOnAddr("localhost:8083")
 }
-func localMux() {
+
+func localGorilla() {
+	router := gorilla.NewRouter()
+	router.HandleFunc("/health", func(w http.ResponseWriter, r *http.Request) {
+		fmt.Fprint(w, "{\"status\": \"OK\"}")
+	})
+
+	http.ListenAndServe("localhost:8085", router)
+}
+func localHttpMux() {
 	slog.Info("Initializing mux")
 	mux := http.NewServeMux()
 	mux.HandleFunc("/health", func(w http.ResponseWriter, r *http.Request) {
