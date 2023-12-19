@@ -18,8 +18,7 @@ func main() {
 }
 
 func localGorilla() {
-	slog.Info("Initializing mux")
-	//muxz := http.NewServeMux()
+	slog.Info("Initializing gorilla")
 
 	router := mux.NewRouter()
 	router.HandleFunc("/health", func(w http.ResponseWriter, r *http.Request) {

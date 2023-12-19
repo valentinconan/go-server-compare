@@ -44,6 +44,7 @@ func localMartini() {
 }
 
 func localGorilla() {
+	slog.Info("Initializing gorilla")
 	router := gorilla.NewRouter()
 	router.HandleFunc("/health", func(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprint(w, "{\"status\": \"OK\"}")
