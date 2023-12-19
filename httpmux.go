@@ -32,5 +32,12 @@ func localHttpMux() {
 
 	mux.Handle("/", http.StripPrefix("/test", testGroup))
 
-	http.ListenAndServe("localhost:8081", mux)
+	http.ListenAndServe("localhost:8081", Use(mux))
+}
+
+func Use(next http.Handler) http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		//do whatever you need here
+		next.ServeHTTP(w, r)
+	})
 }
