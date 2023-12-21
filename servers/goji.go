@@ -4,6 +4,7 @@ import (
 	"fmt"
 	goji "goji.io"
 	"goji.io/pat"
+	"log/slog"
 	"net/http"
 )
 
@@ -15,6 +16,7 @@ func NewGoji() *Goji {
 }
 
 func (g *Goji) Init() {
+	slog.Info("Initializing goji")
 	mux := goji.NewMux()
 
 	mux.Use(func(handler http.Handler) http.Handler {

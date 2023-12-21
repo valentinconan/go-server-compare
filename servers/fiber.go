@@ -1,6 +1,9 @@
 package servers
 
-import "github.com/gofiber/fiber/v2"
+import (
+	"github.com/gofiber/fiber/v2"
+	"log/slog"
+)
 
 type Fiber struct {
 }
@@ -10,6 +13,7 @@ func NewFiber() *Fiber {
 }
 
 func (f *Fiber) Init() {
+	slog.Info("Initializing fiber")
 	fib := fiber.New()
 
 	fib.Use(func(c *fiber.Ctx) error {
