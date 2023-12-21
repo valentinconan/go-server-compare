@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"github.com/gin-gonic/gin"
 	"github.com/go-chi/chi/v2"
 	"github.com/go-martini/martini"
 	"github.com/gofiber/fiber/v2"
@@ -16,7 +15,7 @@ import (
 func main() {
 	slog.Info("Initializing router")
 	//         10s test             port            -c 50                   -c 200                  -c 1000
-	go localGoGin()                //8080       305409 |  5,86MB/s      301142 |  5,76MB/s      305546 | 5,83MB/s
+	go servers.NewGin().Init()     //8080       305409 |  5,86MB/s      301142 |  5,76MB/s      305546 | 5,83MB/s
 	go servers.NewHttpMux().Init() //8081       539316 | 10,34MB/s      584001 | 11,19MB/s      470207 | 9,00MB/s
 	go servers.NewEcho().Init()    //8082       557608 | 10,69MB/s      509854 |  9,77MB/s      463519 | 8,89MB/s
 	go localMartini()              //8083       251361 |  4,82MB/s      286005 |  5,48MB/s      271453 | 5,20MB/s
@@ -58,18 +57,4 @@ func localMartini() {
 		return "{\"status\": \"OK\"}"
 	})
 	m.RunOnAddr("localhost:8083")
-}
-
-func localGoGin() {
-	slog.Info("Initializing go gin")
-	router := gin.Default()
-	gin.SetMode(gin.ReleaseMode)
-
-	router.GET("/health", func(c *gin.Context) {
-		c.String(http.StatusOK, "{\"status\": \"OK\"}")
-	})
-
-	if err := router.Run(":8080"); err != nil {
-		slog.Error("Erreur lors du lancement du serveur Gin: %v", err)
-	}
 }
