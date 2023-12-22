@@ -2,7 +2,7 @@ package servers
 
 import (
 	"fmt"
-	"github.com/labstack/echo"
+	"github.com/labstack/echo/v4"
 	"log/slog"
 	"net/http"
 )
