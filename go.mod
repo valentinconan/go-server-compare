@@ -4,7 +4,7 @@ go 1.21.5
 
 require (
 	github.com/gin-gonic/gin v1.9.1
-	github.com/go-chi/chi/v2 v2.1.1
+	github.com/go-chi/chi/v5 v5.0.11
 	github.com/go-martini/martini v0.0.0-20170121215854-22fa46961aab
 	github.com/gofiber/fiber/v2 v2.51.0
 	github.com/gorilla/mux v1.8.1

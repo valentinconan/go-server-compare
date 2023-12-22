@@ -1,10 +1,8 @@
 package main
 
 import (
-	"github.com/go-chi/chi/v2"
 	"go-server-compare/servers"
 	"log/slog"
-	"net/http"
 )
 
 func main() {
@@ -17,16 +15,8 @@ func main() {
 	go servers.NewGoji().Init()    //8084       552464 | 10,59MB/s      584054 | 11,19MB/s      450340 | 8,62MB/s
 	go servers.NewGorilla().Init() //8085       554316 | 10,63MB/s      572607 | 10,98MB/s      446838 | 8,56MB/s
 	go servers.NewFiber().Init()   //8086       608215 | 11,66MB/s      555507 | 10,65MB/s      498507 | 9,55MB/s
-	go localChi()                  //8087       457159 |  8,76MB/s      439088 |  8,41MB/s      373024 | 7,14MB/s
+	go servers.NewChi().Init()     //8087       550486 | 10,56MB/s      567778 | 10,88MB/s      485359 | 9,30MB/s
 	var forever chan struct{}
 	slog.Info("Infinite loop")
 	<-forever
-}
-
-func localChi() {
-	chichi := chi.NewRouter()
-	chichi.Get("/health", func(writer http.ResponseWriter, request *http.Request) {
-		writer.Write([]byte("{\"status\": \"OK\"}"))
-	})
-	http.ListenAndServe(":8087", chichi)
 }
