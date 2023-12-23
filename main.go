@@ -16,6 +16,7 @@ func main() {
 	go servers.NewGorilla().Init() //8085       554316 | 10,63MB/s      572607 | 10,98MB/s      446838 | 8,56MB/s
 	go servers.NewFiber().Init()   //8086       608215 | 11,66MB/s      555507 | 10,65MB/s      498507 | 9,55MB/s
 	go servers.NewChi().Init()     //8087       550486 | 10,56MB/s      567778 | 10,88MB/s      485359 | 9,30MB/s
+	go servers.NewHttpRouter().Init()
 	var forever chan struct{}
 	slog.Info("Infinite loop")
 	<-forever
