@@ -15,7 +15,7 @@ func NewGin() *Gin {
 
 func (g *Gin) Init() {
 	slog.Info("Initializing go gin")
-	router := gin.Default()
+	router := gin.New()
 	gin.SetMode(gin.ReleaseMode)
 
 	router.Use(func(context *gin.Context) {
