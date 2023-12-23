@@ -31,5 +31,5 @@ func (ma *Martini) Init() {
 		})
 	})
 
-	server.RunOnAddr("localhost:8083")
+	server.RunOnAddr(":8083")
 }

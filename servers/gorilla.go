@@ -36,5 +36,5 @@ func (g *Gorilla) Init() {
 		fmt.Fprint(w, "{\"test\": \"KO\"}")
 	})
 
-	log.Fatal(http.ListenAndServe("localhost:8085", router))
+	log.Fatal(http.ListenAndServe(":8085", router))
 }
