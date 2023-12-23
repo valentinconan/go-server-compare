@@ -33,5 +33,5 @@ func (e *Echo) Init() {
 	testGroup.GET("/ko", func(c echo.Context) error {
 		return c.String(http.StatusOK, fmt.Sprintf("{\"test\": \"KO\"}"))
 	})
-	server.Start("localhost:8082")
+	server.Start(":8082")
 }

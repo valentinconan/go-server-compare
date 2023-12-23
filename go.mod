@@ -8,7 +8,6 @@ require (
 	github.com/go-martini/martini v0.0.0-20170121215854-22fa46961aab
 	github.com/gofiber/fiber/v2 v2.51.0
 	github.com/gorilla/mux v1.8.1
-	github.com/labstack/echo v3.3.10+incompatible
 	github.com/labstack/echo/v4 v4.11.4
 	github.com/labstack/gommon v0.4.2
 	goji.io v2.0.2+incompatible

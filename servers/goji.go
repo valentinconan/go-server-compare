@@ -37,5 +37,5 @@ func (g *Goji) Init() {
 		fmt.Fprint(w, "{\"test\": \"KO\"}")
 	})
 
-	http.ListenAndServe("localhost:8084", mux)
+	http.ListenAndServe(":8084", mux)
 }

@@ -30,7 +30,7 @@ func (h *HttpMux) Init() {
 
 	mux.Handle("/", http.StripPrefix("/test", testGroup))
 
-	http.ListenAndServe("localhost:8081", Use(mux))
+	http.ListenAndServe(":8081", Use(mux))
 }
 
 func Use(next http.Handler) http.Handler {
