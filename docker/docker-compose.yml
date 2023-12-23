@@ -1,0 +1,30 @@
+version: '2.3'
+services:
+  go-bombardier:
+    container_name: go-bombardier
+    image: valentinconan/go-bombardier:master
+    networks:
+      - server-compare-network
+  go-server-compare:
+    hostname: go-server-compare
+    image: valentinconan/go-server-compare:master
+    restart: unless-stopped
+    healthcheck:
+      test: wget -O /dev/null http://localhost:8080/health || exit 1
+      interval: 1s
+      timeout: 5s
+      retries: 10
+    ports:
+      - "8080:8080"
+      - "8081:8081"
+      - "8082:8082"
+      - "8083:8083"
+      - "8084:8084"
+      - "8085:8085"
+      - "8086:8086"
+      - "8087:8087"
+    networks:
+      - server-compare-network
+networks:
+  server-compare-network:
+    driver: bridge
