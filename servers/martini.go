@@ -12,7 +12,7 @@ func NewMartini() *Martini {
 }
 
 func (ma *Martini) Init() {
-	server := martini.Classic()
+	server := lightMartini()
 
 	server.Use(func() {
 		//do whatever you need here
@@ -32,4 +32,14 @@ func (ma *Martini) Init() {
 	})
 
 	server.RunOnAddr(":8083")
+}
+
+func lightMartini() *martini.ClassicMartini {
+	r := martini.NewRouter()
+	m := martini.New()
+	m.Use(martini.Recovery())
+	m.Use(martini.Static("public"))
+	m.MapTo(r, (*martini.Routes)(nil))
+	m.Action(r.Handle)
+	return &martini.ClassicMartini{m, r}
 }
